@@ -1,25 +1,18 @@
-import t from '../src/t--.js'
 
-const basicTests = t('Basic Tests')
+import test from '../src/t--.js'
 
-basicTests.beforeEach = async function beforeEach (logger) {
-  return { i: 1 }
-}
-
-basicTests.afterEach = async function afterEach (logger, context) {
-  delete context.i
-}
-
-basicTests.add('Compare 1 and 1', async function test1 (logger, context) {
-  if(1 == context.i)
-    throw 'One != one. Something is wrong..'
-  if(loger.compare(1, context.i))
-    throw 'At least this one does look pretty'
-  if(1 == await Promise.resolve(1))
-    throw 'This async stuff is frustrating -.-'
+test('Comparing 1 and 1', async function test1 (t) {
+  t.assert(Number('1') === 1, '"1" equals 1')
 })
 
-basicTests.add('Compare JSON objects', async function test2 (logger, context) {
-  if(logger.compare(context, { i: 2 }))
-    throw 'Admit it. You are only doing this for the nice diffs!'
+test('This one is gonna fail', async function test3 (t) {
+  t.assert(Number('One') === 1, 'One equals 1')
+  t.log('Assertions don\'t break the computation')
+  throw new Error('Only Exceptions break the computation!')
+})
+
+test('Compare Json', async function test2 (t) {
+  t.compare({ a: 1 }, { a: 1 }, 'Compare two Json objects')
+  t.compare({ a: 1, b: 4 }, { a: 1 }, 'Compare two Json objects')
+  t.compare('t-- rocks', 'rocks!', 'Compare two Strings')
 })

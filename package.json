@@ -14,11 +14,12 @@
   "author": "Kevin Jahns <kevin.jahns@rwth-aachen.de>",
   "license": "MIT",
   "devDependencies": {
-    "babel-plugin-external-helpers": "^6.22.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-latest": "^6.24.1",
-    "rollup-plugin-babel": "^2.7.1",
-    "rollup-plugin-regenerator": "^0.3.0",
-    "rollup-plugin-uglify": "^1.0.2"
+    "diff": "^3.2.0",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-watch": "^3.2.2"
+  },
+  "dependencies": {
+    "meow": "^3.7.0"
   }
 }
