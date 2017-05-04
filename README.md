@@ -45,7 +45,7 @@ nodemon test.js
 
 You already know this one:
 ```
-node --inspect test.js
+node --inspect --debug-brk test.js
 ```
 
 Now go to `chrome://inspect/#devices` and click on
