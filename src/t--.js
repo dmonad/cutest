@@ -17,9 +17,9 @@ export default function test (testDescription, ...args) {
   }
 }
 
-var serialTestChain = Promise.resolve()
+var sequentialTestChain = Promise.resolve()
 
-export function serialTest (testDescription, ...args) {
+export function sequentialTest (testDescription, ...args) {
   var testFunction = args.pop()
   if (state.query.test == null ||
     (testFunction.name != null && testFunction.name.indexOf(state.query.test) >= 0)
@@ -28,7 +28,7 @@ export function serialTest (testDescription, ...args) {
     var nextTest = function nextTest () {
       return testcase.run().then(nop, nop)
     }
-    serialTestChain = serialTestChain.then(nextTest, nextTest)
+    sequentialTestChain = sequentialTestChain.then(nextTest, nextTest)
   } else {
     return Promise.resolve()
   }
