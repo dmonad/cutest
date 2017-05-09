@@ -1,17 +1,18 @@
 import nodeResolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
+import multiEntry from 'rollup-plugin-multi-entry'
 
 export default {
-  entry: 'tests/basic.js',
+  entry: 'tests/**/*.js',
   moduleName: 'tests',
   format: 'umd',
   plugins: [
     nodeResolve({
-      main: true,
       jsnext: true,
       browser: true
     }),
-    commonjs()
+    commonjs(),
+    multiEntry()
   ],
   dest: 'test.js',
   sourceMap: true
