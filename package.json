@@ -4,6 +4,7 @@
   "description": "Minimalistic testing",
   "main": "t--.js",
   "scripts": {
+    "build": "rollup -c rollup.test.js -o t--.js ./src/t--.js",
     "debug:node": "concurrently 'rollup -wc rollup.test.js' 'nodemon --inspect --debug-brk test.js'",
     "debug:browser": "concurrently 'rollup -wc rollup.test.js' 'budo test.js --open --live'",
     "test": "rollup -c rollup.test.js; node test.js"
