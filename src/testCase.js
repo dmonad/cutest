@@ -24,46 +24,50 @@ class TestCase extends Logger {
     this.id = ++state.numberOfTests
   }
   run () {
-    var __iterateOverGenerators = async (gens, args, argcase) => {
-      if (gens.length === 0) {
-        argcase.i++
-        if (state.query.case == null || state.query.case === argcase.i) {
-          var url = createTestLink({
-            test: this.name,
-            seed: this._seed,
-            case: argcase.i
+    return new Promise((resolve, reject) => {
+      var __iterateOverGenerators = async (gens, args, argcase) => {
+        if (gens.length === 0) {
+          argcase.i++
+          if (state.query.case == null || state.query.case === argcase.i) {
+            var url = createTestLink({
+              test: this.name,
+              seed: this._seed,
+              case: argcase.i
+            })
+            args.push(url)
+            await this.asyncGroup(async () => {
+              await this.testFunction(this, ...args)
+            }, 'Arguments:', ...args)
+          }
+        } else {
+          var gen = gens.shift()
+          for (var arg of gen) {
+            await __iterateOverGenerators(gens.slice(), args.slice().concat([arg]), argcase)
+          }
+        }
+      }
+      var __testStarter = () => {
+        var test
+        if (this.valueGenerators.length > 0) {
+          test = __iterateOverGenerators(this.valueGenerators, [], { i: 0 })
+        } else {
+          test = this.testFunction(this)
+        }
+        test.then(() => {
+          testCompleted(this)
+          resolve(this)
+        }, (err) => {
+          this.fail()
+          this.buffer.push({
+            f: 'log',
+            args: ['%cUncaught ' + err.stack, 'color: red']
           })
-          args.push(url)
-          await this.asyncGroup(async () => {
-            await this.testFunction(this, ...args)
-          }, 'Arguments:', ...args)
-        }
-      } else {
-        var gen = gens.shift()
-        for (var arg of gen) {
-          await __iterateOverGenerators(gens.slice(), args.slice().concat([arg]), argcase)
-        }
-      }
-    }
-    var __testStarter = () => {
-      var test
-      if (this.valueGenerators.length > 0) {
-        test = __iterateOverGenerators(this.valueGenerators, [], { i: 0 })
-      } else {
-        test = this.testFunction(this)
-      }
-      test.then(() => {
-        testCompleted(this)
-      }, (err) => {
-        this.fail()
-        this.buffer.push({
-          f: 'log',
-          args: ['%cUncaught ' + err.stack, 'color: red']
+          testCompleted(this)
+          reject(this)
         })
-        testCompleted(this)
-      })
-    }
-    setTimeout(__testStarter, 0)
+      }
+      setTimeout(__testStarter, 0)
+    })
   }
   getSeed () {
     if (this._seed == null) {
