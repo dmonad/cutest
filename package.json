@@ -1,13 +1,18 @@
 {
   "name": "t--",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Minimalistic testing",
   "main": "t--.js",
+  "module": "src/t--.js",
+  "files": [
+    "test.*", "t--.*"
+  ],
   "scripts": {
-    "build": "rollup -c rollup.test.js -o t--.js ./src/t--.js",
+    "postversion": "npm run dist",
+    "postpublish": "tag-dist-files --overwrite-existing-tag",
+    "dist": "rollup -c rollup.test.js -o t--.js ./src/t--.js",
     "debug:node": "concurrently 'rollup -wc rollup.test.js' 'nodemon --inspect --debug-brk test.js'",
-    "debug:browser": "concurrently 'rollup -wc rollup.test.js' 'budo test.js --open --live'",
-    "test": "rollup -c rollup.test.js; node test.js"
+    "debug:browser": "concurrently 'rollup -wc rollup.test.js' 'budo test.js --open --live'"
   },
   "keywords": [
     "testing"
@@ -20,10 +25,12 @@
     "concurrently": "^3.4.0",
     "debug": "^2.6.6",
     "diff": "^3.2.0",
+    "np": "^2.14.1",
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-multi-entry": "^2.0.1",
     "rollup-plugin-node-resolve": "^3.0.0",
-    "rollup-watch": "^3.2.2"
+    "rollup-watch": "^3.2.2",
+    "tag-dist-files": "^0.1.6"
   },
   "dependencies": {
     "meow": "^3.7.0"
