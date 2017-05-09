@@ -1,11 +1,12 @@
 {
   "name": "t--",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Minimalistic testing",
   "main": "t--.js",
   "module": "src/t--.js",
   "files": [
-    "test.*", "t--.*"
+    "test.*",
+    "t--.*"
   ],
   "scripts": {
     "postversion": "npm run dist",
