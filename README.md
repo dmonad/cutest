@@ -63,16 +63,10 @@ Best node debugging ever!
 
 ### Browser Ninja Tricks
 
-Just include the test script in your HTML file. If you don't have one, [budo](https://github.com/mattdesl/budo) is there to help you:
+Just include the test script in your HTML file. If you don't have one, we got a nice live-reload server for you:
 
 ```
-budo test.js --open
-```
-
-You can also automatically *reload* when the file changes
-
-```
-budo test.js --open --watch
+t-- test.js --open
 ```
 
 It's not [Karma](https://karma-runner.github.io/1.0/index.html). But hey, it's

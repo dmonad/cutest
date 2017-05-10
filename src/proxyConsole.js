@@ -7,7 +7,7 @@ export default function proxyConsole () {
     console[fName] = function consoleProxy () {
       var trace = new Error().stack.split('\n')
       var i = trace.length - 1
-      while (i > 0 && trace[i].match((/^ {4}at (?:__iterateOverGenerators|__testStarter|TestCase.*\.asyncGroup|asyncGroup) \(.*/))) {
+      while (i > 0 && trace[i].match((/^ {4}at (?:<anonymous>|__iterateOverGenerators|__testStarter|TestCase.*\.asyncGroup|asyncGroup).*/))) {
         i--
       }
       var hasTestName = trace[i]

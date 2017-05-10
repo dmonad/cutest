@@ -4,6 +4,7 @@
   "description": "Minimalistic testing",
   "main": "t--.js",
   "module": "src/t--.js",
+  "bin": "./bin/serve.js",
   "files": [
     "test.*",
     "t--.*"
@@ -13,7 +14,7 @@
     "postpublish": "tag-dist-files --overwrite-existing-tag",
     "dist": "rollup -c rollup.test.js -o t--.js ./src/t--.js",
     "debug:node": "concurrently 'rollup -wc rollup.test.js' 'nodemon --inspect --debug-brk test.js'",
-    "debug:browser": "concurrently 'rollup -wc rollup.test.js' 'budo test.js --open --live'"
+    "debug:browser": "concurrently 'rollup -wc rollup.test.js' './bin/serve.js test.js -o'"
   },
   "keywords": [
     "testing"
