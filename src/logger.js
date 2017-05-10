@@ -105,11 +105,11 @@ export default class Logger {
     var arg2 = typeof o2 === 'string' ? `"${o2}"` : cloneDeep(o2)
     this.group(() => {
       var delta = jsondiffpatch.diff(o1, o2)
-      var logargs = formatConsole(delta, o1)
-      if (logargs.length > 1) {
+      var res = formatConsole(delta, o1)
+      if (!res.match) {
         this.fail()
       }
-      this.log.apply(this, logargs)
+      this.log.apply(this, res.logArguments)
     }, name, arg1, arg2)
   }
 }

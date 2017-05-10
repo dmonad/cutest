@@ -7,7 +7,7 @@ var colors = {
   deleted: 'color:red',
   movedestination: 'color:gray',
   moved: 'color:blue',
-  unchanged: 'color:gray',
+  unchanged: 'hide',
   error: 'background:red',
   textDiffLine: 'color:gray'
 }
@@ -19,7 +19,32 @@ export function ConsoleFormatter () {
 ConsoleFormatter.prototype = new BaseFormatter()
 
 ConsoleFormatter.prototype.finalize = function (context) {
-  return [context.buffer.join('')].concat(context.styles)
+  var match = context.styles.length === 0
+  var styles = context.styles
+  var buffer = context.buffer
+               .join('')
+               .split('\n')
+  buffer = buffer
+               .filter((t, i) => !(t.match(/^ +$/) && buffer[i] === t))
+
+  var styleCounter = 0
+  for (var i = 0; i < buffer.length; i++) {
+    var b = buffer[i]
+    var styleOccurences = b.split('%c').length - 1
+    if (styleOccurences === 0) {
+      buffer[i] = '%c' + b
+      styles.splice(styleCounter, 0, '')
+      styleCounter++
+    } else {
+      styleCounter += styleOccurences
+    }
+  }
+
+  var text = buffer.join('\n')
+  return {
+    logArguments: [text].concat(styles),
+    match: match
+  }
 }
 
 ConsoleFormatter.prototype.prepareContext = function (context) {
@@ -38,11 +63,13 @@ ConsoleFormatter.prototype.prepareContext = function (context) {
     for (var i = 0, l = arguments.length; i < l; i++) {
       var lines = arguments[i].split('\n')
       var text = lines.join('\n' + (this.indentPad || ''))
-      if (this.color && this.color[0]) {
-        text = '%c' + text
-        this.styles.push(this.color[0])
+      if (this.color == null || this.color[0] !== 'hide') {
+        if (this.color && this.color[0]) {
+          text = '%c' + text
+          this.styles.push(this.color[0])
+        }
+        this.buffer.push(text)
       }
-      this.buffer.push(text)
     }
   }
   context.pushColor = function (color) {
