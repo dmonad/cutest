@@ -1,5 +1,5 @@
 
-import test, { proxyConsole } from '../src/t--.js'
+import test, { proxyConsole } from '../src/cutest.js'
 
 /*
  * Optionally, you can proxy console.* to output to the grouped log.
@@ -30,9 +30,9 @@ test('Compare Json', async function test3 (t) {
   var o1 = { a: 1 }
   var o2 = { a: 1 }
 
-  //t.compare(o1, o2, 'Compare two Json objects')
+  t.compare(o1, o2, 'Compare two Json objects')
   o1.b = 4
   t.compare(o1, o2, 'Compare two Json objects')
-  //t.compare({ a: 1, b: 2 }, {a: 1, b: 2, c: 4}, 'Compare two Json objects')
-  //t.compare('t-- rocks', 'rocks!', 'Compare two Strings')
+  t.compare({ a: 1, b: 2 }, {a: 1, b: 2, c: 4}, 'Compare two Json objects')
+  t.compare('t-- rocks', 'rocks!', 'Compare two Strings')
 })

@@ -4,7 +4,7 @@ import multiEntry from 'rollup-plugin-multi-entry'
 
 export default {
   entry: 'tests/**/*.js',
-  moduleName: 'tests',
+  moduleName: 'cutest-tests',
   format: 'umd',
   plugins: [
     nodeResolve({
@@ -14,6 +14,6 @@ export default {
     commonjs(),
     multiEntry()
   ],
-  dest: 'test.js',
+  dest: 'cutest.test.js',
   sourceMap: true
 }

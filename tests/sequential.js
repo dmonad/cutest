@@ -1,5 +1,5 @@
 
-import { sequentialTest as test } from '../src/t--.js'
+import { sequentialTest as test } from '../src/cutest.js'
 
 var sequential1Executed = false
 

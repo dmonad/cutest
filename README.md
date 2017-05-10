@@ -1,10 +1,10 @@
-# t--
-> Awesome tests. Executes tests asynchronously (all at once)
+# ![cute](https://cloud.githubusercontent.com/assets/5553757/25920308/d0e3ac9a-35d1-11e7-8af7-af1efa39c8ad.jpg) The CUTEST Testing Framework
+> Uncluttered, concurrent tests
 
-No reporter, no set-up, no global variables. Just run the test file in any environment and **t--** will log to the console. That's it.
+No set-up, no global variables, no reporter. Just run the test file in any environment and **cutest** logs will appear in your console. That's it.
 
 ```js
-import test from 't--'
+import test from 'cutest'
 
 test('Comparing 1 and 1', async function test1 (t) {
   t.assert(Number('1') === 1, '"1" equals 1')
@@ -20,7 +20,7 @@ test('Compare Json', async function test2 (t) {
   t.compare({ a: 1 }, { a: 1 }, 'Compare two Json objects')
   t.compare({ a: 1 }, { a: 2 }, 'Compare two Json objects')
   t.compare({ a: 1 }, { a: 1, b: 4 }, 'Compare two Json objects')
-  t.compare('t-- rocks', 'rocks!', 'Compare two Strings')
+  t.compare('rocks!!!', 'CUTEST rocks', 'Compare two Strings')
   t.compare([1, 2, 3], [1, 2], 'Compare Arrays')
 })
 ```
@@ -66,7 +66,7 @@ Best node debugging ever!
 Just include the test script in your HTML file. If you don't have one, we got a nice live-reload server for you:
 
 ```
-t-- test.js --open
+cutest test.js --open
 ```
 
 It's not [Karma](https://karma-runner.github.io/1.0/index.html). But hey, it's

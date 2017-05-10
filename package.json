@@ -1,21 +1,20 @@
 {
-  "name": "t--",
+  "name": "cutest",
   "version": "0.0.1",
-  "description": "Minimalistic testing",
-  "main": "t--.js",
-  "module": "src/t--.js",
+  "description": "The CUTEST testing framework",
+  "main": "cutest.js",
+  "module": "src/cutest.js",
   "bin": "./bin/serve.js",
   "files": [
-    "test.*",
-    "t--.*"
+    "./cutest.*"
   ],
   "scripts": {
     "lint": "npm run lint",
     "postversion": "npm run dist",
     "postpublish": "tag-dist-files --overwrite-existing-tag",
-    "dist": "rollup -c rollup.test.js -o t--.js ./src/t--.js",
-    "debug:node": "concurrently 'rollup -wc rollup.test.js' 'nodemon --inspect --debug-brk test.js'",
-    "debug:browser": "concurrently 'rollup -wc rollup.test.js' './bin/serve.js test.js -o'"
+    "dist": "rollup -c rollup.test.js -o cutest.js ./src/cutest.js",
+    "debug:node": "concurrently 'rollup -wc rollup.test.js' 'nodemon --inspect --debug-brk cutests.test.js'",
+    "debug:browser": "concurrently 'rollup -wc rollup.test.js' './bin/serve.js cutest.test.js -o'"
   },
   "keywords": [
     "testing"
@@ -23,11 +22,9 @@
   "author": "Kevin Jahns <kevin.jahns@rwth-aachen.de>",
   "license": "MIT",
   "devDependencies": {
-    "budo": "^10.0.3",
     "chance": "^1.0.8",
     "concurrently": "^3.4.0",
     "debug": "^2.6.6",
-    "diff": "^3.2.0",
     "jsondiffpatch": "^0.2.4",
     "np": "^2.14.1",
     "rollup-plugin-commonjs": "^8.0.2",
