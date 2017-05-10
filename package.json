@@ -10,6 +10,7 @@
     "t--.*"
   ],
   "scripts": {
+    "lint": "npm run lint",
     "postversion": "npm run dist",
     "postpublish": "tag-dist-files --overwrite-existing-tag",
     "dist": "rollup -c rollup.test.js -o t--.js ./src/t--.js",
@@ -27,6 +28,7 @@
     "concurrently": "^3.4.0",
     "debug": "^2.6.6",
     "diff": "^3.2.0",
+    "jsondiffpatch": "^0.2.4",
     "np": "^2.14.1",
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-multi-entry": "^2.0.1",

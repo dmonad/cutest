@@ -4,13 +4,13 @@ var pkg = require('./package.json')
 
 const babelConfig = {
   presets: [
-    ["latest", {
-      "es2015": {
-        "modules": false
+    ['latest', {
+      'es2015': {
+        'modules': false
       }
     }]
   ],
-  plugins: ["external-helpers"],
+  plugins: ['external-helpers'],
   babelrc: false
 }
 
@@ -22,13 +22,13 @@ export default {
     babel(babelConfig),
     uglify({
       output: {
-        comments: function(node, comment) {
-            var text = comment.value;
-            var type = comment.type;
-            if (type == "comment2") {
+        comments: function (node, comment) {
+          var text = comment.value
+          var type = comment.type
+          if (type === 'comment2') {
                 // multiline comment
-                return /@license/i.test(text);
-            }
+            return /@license/i.test(text)
+          }
         }
       }
     })
@@ -42,4 +42,4 @@ export default {
  * @license ${pkg.license}
  */
 `
-};
+}

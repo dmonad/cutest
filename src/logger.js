@@ -1,6 +1,10 @@
 
-import { diffJson, diffChars } from 'diff'
+import jsondiffpatch from 'jsondiffpatch'
 import { cloneDeep } from './helper.js'
+import formatConsole from './consoleFormatter.js'
+
+window.formatConsole = formatConsole
+window.jsondiffpatch = jsondiffpatch
 
 export default class Logger {
   constructor () {
@@ -100,28 +104,12 @@ export default class Logger {
     var arg1 = typeof o1 === 'string' ? `"${o1}"` : cloneDeep(o1)
     var arg2 = typeof o2 === 'string' ? `"${o2}"` : cloneDeep(o2)
     this.group(() => {
-      var diff
-      if (typeof o1 === 'string') {
-        diff = diffChars(o1, o2)
-      } else {
-        diff = diffJson(o1, o2)
-      }
-      if (!(diff.length === 1 && diff[0].removed == null && diff[0].added == null)) {
+      var delta = jsondiffpatch.diff(o1, o2)
+      var logargs = formatConsole(delta, o1)
+      if (logargs.length > 1) {
         this.fail()
       }
-      var print = ''
-      var styles = []
-      diff.forEach(function (d) {
-        print += '%c' + d.value
-        if (d.removed != null) {
-          styles.push('background:red')
-        } else if (d.added != null) {
-          styles.push('background:lightgreen')
-        } else {
-          styles.push('')
-        }
-      })
-      this.log.apply(this, [print].concat(styles))
+      this.log.apply(this, logargs)
     }, name, arg1, arg2)
   }
 }

@@ -7,21 +7,21 @@ import globals from 'rollup-plugin-node-globals'
 var pkg = require('./package.json')
 
 const babelConfig = {
-  exclude: "node_modules/**",
+  exclude: 'node_modules/**',
   presets: [
-    ["latest", {
-      "es2015": {
-        "modules": false
+    ['latest', {
+      'es2015': {
+        'modules': false
       }
     }]
   ],
   plugins: [
-    "external-helpers",
-    "transform-regenerator",
-    ["transform-runtime", {
-      "helpers": false,
-      "polyfill": false,
-      "regenerator": true
+    'external-helpers',
+    'transform-regenerator',
+    ['transform-runtime', {
+      'helpers': false,
+      'polyfill': false,
+      'regenerator': true
     }]
   ]
 }
@@ -51,4 +51,4 @@ export default {
  * @license ${pkg.license}
  */
 `
-};
+}
