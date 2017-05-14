@@ -17,7 +17,7 @@ class TestCase extends Logger {
     }
     this.name = testFunction.name
     if (state.tests[this.name] != null) {
-      throw new Error(`A function with the same function name "${this.name}" was already provided! Please provide a unique function name`)
+      throw new Error(`A test function with the name "${this.name}" was already provided. You must specify unique test function names.`)
     }
     state.tests[this.name] = this
     this._seed = state.query.seed || null
