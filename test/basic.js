@@ -1,5 +1,5 @@
 
-import { test, proxyConsole } from '../src/cutest.js'
+import { test, proxyConsole } from '../src/index.js'
 
 /*
  * Optionally, you can proxy console.* to output to the grouped log.

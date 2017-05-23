@@ -1,4 +1,4 @@
-import { test, proxyConsole } from '../src/cutest.js'
+import { test, proxyConsole } from '../src/index.js'
 import Chance from 'chance'
 
 proxyConsole()

@@ -3,16 +3,22 @@
   "version": "0.1.0",
   "description": "The CUTEST testing framework",
   "main": "cutest.js",
-  "module": "src/cutest.js",
+  "module": "cutest.mjs",
   "bin": "./bin/serve.js",
   "files": [
     "./cutest.*"
   ],
+  "standard": {
+    "ignore": [
+      "./cutest*"
+    ]
+  },
   "scripts": {
     "lint": "npm run lint",
     "postversion": "npm run dist",
     "postpublish": "tag-dist-files --overwrite-existing-tag",
-    "dist": "rollup -c -o cutest.js ./src/cutest.js && rollup -c -f es -o cutest.mjs ./src/cutest.js",
+    "dist": "rollup -c -o cutest.js ./src/index.js && rollup -c -f es -o cutest.mjs ./src/index.js",
+    "watch": "concurrently 'rollup -wc -o cutest.js ./src/cutest.js' 'rollup -wc -f es -o cutest.mjs ./src/index.js'",
     "debug:node": "concurrently 'rollup -wc' 'nodemon --inspect --debug-brk cutests.test.js'",
     "debug:browser": "concurrently 'rollup -wc' './bin/serve.js cutest.test.js -o'"
   },

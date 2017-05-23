@@ -1,7 +1,7 @@
 
 import jsondiffpatch from 'jsondiffpatch'
 import { cloneDeep } from './helper.js'
-import formatConsole from './consoleFormatter.js'
+import formatConsole from './console-formatter.js'
 
 export default class Logger {
   constructor () {

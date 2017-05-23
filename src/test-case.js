@@ -1,6 +1,7 @@
 
 import state from './state.js'
-import { createTestLink, testCompleted, browserSupport } from './helper.js'
+import { createTestLink, browserSupport } from './helper.js'
+import testHandler from './test-handler.js'
 
 import Logger from './logger.js'
 
@@ -12,18 +13,18 @@ class TestCase extends Logger {
     this.valueGenerators = valueGenerators
     this.description = testDescription
     this.testFunction = testFunction
-    if (testFunction.name == null) {
-      throw new Error('Anonymous test functions are not allowed! Please name your test function')
-    }
     this.name = testFunction.name
-    if (state.tests[this.name] != null) {
-      throw new Error(`A test function with the name "${this.name}" was already provided. You must specify unique test function names.`)
-    }
     state.tests[this.name] = this
     this._seed = state.query.seed || null
-    this.id = ++state.numberOfTests
+    this.status = 'pending'
+    this.success = null
+    testHandler.register(this)
+  }
+  copy () {
+    return new TestCase(this.testDescription, this.testFunction, this.valueGenerators)
   }
   run () {
+    this.status = 'running'
     return new Promise((resolve, reject) => {
       var __iterateOverGenerators = async (gens, args, argcase) => {
         if (gens.length === 0) {
@@ -54,10 +55,13 @@ class TestCase extends Logger {
           test = this.testFunction(this)
         }
         test.then(() => {
-          testCompleted(this)
+          this.status = 'done'
+          this.success = true
+          testHandler.testCompleted(this)
           resolve(this)
         }, (err) => {
-          this.fail()
+          this.status = 'done'
+          this.success = false
           this.buffer.push({
             f: 'log',
             args: ['%cUncaught ' + err.stack, 'color: red']
@@ -72,6 +76,7 @@ class TestCase extends Logger {
   getSeed () {
     if (this._seed == null) {
       this._seed = Math.random()
+      this._continue = true
     }
     return this._seed
   }
