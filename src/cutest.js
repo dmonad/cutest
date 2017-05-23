@@ -4,9 +4,7 @@ import TestCase from './testCase.js'
 
 export { default as proxyConsole } from './proxyConsole.js'
 
-function nop () {}
-
-export default function test (testDescription, ...args) {
+export function test (testDescription, ...args) {
   var testFunction = args.pop()
   if (state.query.test == null ||
     (testFunction.name != null && testFunction.name.indexOf(state.query.test) >= 0)
@@ -16,6 +14,8 @@ export default function test (testDescription, ...args) {
     return Promise.resolve()
   }
 }
+
+function nop () {}
 
 var sequentialTestChain = Promise.resolve()
 

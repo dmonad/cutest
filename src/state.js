@@ -2,9 +2,15 @@
 
 import queryString from 'query-string'
 
-const _query = queryString.parse(location.search) || null
-if (_query.case != null) {
-  _query.case = Number(_query.case)
+var _query
+
+if (typeof location !== 'undefined') {
+  _query = queryString.parse(location.search) || null
+  if (_query.case != null) {
+    _query.case = Number(_query.case)
+  }
+} else {
+  _query = {}
 }
 
 const state = {

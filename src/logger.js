@@ -3,9 +3,6 @@ import jsondiffpatch from 'jsondiffpatch'
 import { cloneDeep } from './helper.js'
 import formatConsole from './consoleFormatter.js'
 
-window.formatConsole = formatConsole
-window.jsondiffpatch = jsondiffpatch
-
 export default class Logger {
   constructor () {
     this.buffer = []

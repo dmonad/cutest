@@ -1,5 +1,5 @@
 
-import test, { proxyConsole } from '../src/cutest.js'
+import { test, proxyConsole } from '../src/cutest.js'
 import debugLogger from 'debug'
 
 proxyConsole()

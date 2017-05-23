@@ -9,16 +9,18 @@ export const browserSupport =
   console.group != null
 
 export function createTestLink (params) {
-  var query = queryString.parse(location.search)
-  delete query.test
-  delete query.seed
-  delete query.args
-  for (var name in params) {
-    if (params[name] != null) {
-      query[name] = params[name]
+  if (typeof location !== 'undefined') {
+    var query = JSON.parse(JSON.stringify(state.query))
+    delete query.test
+    delete query.seed
+    delete query.args
+    for (var name in params) {
+      if (params[name] != null) {
+        query[name] = params[name]
+      }
     }
+    return location.protocol + '//' + location.host + location.pathname + '?' + queryString.stringify(query) + location.hash
   }
-  return location.protocol + '//' + location.host + location.pathname + '?' + queryString.stringify(query) + location.hash
 }
 
 export function testCompleted (test) {
