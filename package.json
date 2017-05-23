@@ -25,7 +25,6 @@
     "chance": "^1.0.8",
     "concurrently": "^3.4.0",
     "debug": "^2.6.6",
-    "jsondiffpatch": "^0.2.4",
     "np": "^2.14.1",
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-inject": "^2.0.0",
@@ -33,11 +32,12 @@
     "rollup-plugin-multi-entry": "^2.0.1",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-watch": "^3.2.2",
-    "tag-dist-files": "^0.1.6"
+    "tag-dist-files": "^0.1.6",
+    "jsondiffpatch": "^0.2.4",
+    "query-string": "^4.3.4"
   },
   "dependencies": {
     "live-server": "^1.2.0",
-    "meow": "^3.7.0",
-    "query-string": "^4.3.4"
+    "meow": "^3.7.0"
   }
 }
