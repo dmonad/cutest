@@ -1,5 +1,4 @@
 
-import state from './state.js'
 import TestCase from './test-case.js'
 import testHandler from './test-handler.js'
 
@@ -13,6 +12,6 @@ export function test (testDescription, ...args) {
 
 export function sequentialTest (testDescription, ...args) {
   var testFunction = args.pop()
-  var testCase = new TestCase(testDescription, testFunction, args, { parallel: true })
+  var testCase = new TestCase(testDescription, testFunction, args)
   testHandler.register(testCase)
 }

@@ -14,7 +14,7 @@
     ]
   },
   "scripts": {
-    "lint": "npm run lint",
+    "lint": "standard",
     "postversion": "npm run dist",
     "postpublish": "tag-dist-files --overwrite-existing-tag",
     "dist": "rollup -c -o cutest.js ./src/index.js && rollup -c -f es -o cutest.mjs ./src/index.js",
@@ -31,16 +31,17 @@
     "chance": "^1.0.8",
     "concurrently": "^3.4.0",
     "debug": "^2.6.6",
+    "jsondiffpatch": "^0.2.4",
     "np": "^2.14.1",
+    "query-string": "^4.3.4",
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-inject": "^2.0.0",
     "rollup-plugin-json": "^2.1.1",
     "rollup-plugin-multi-entry": "^2.0.1",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-watch": "^3.2.2",
-    "tag-dist-files": "^0.1.6",
-    "jsondiffpatch": "^0.2.4",
-    "query-string": "^4.3.4"
+    "standard": "^10.0.2",
+    "tag-dist-files": "^0.1.6"
   },
   "dependencies": {
     "live-server": "^1.2.0",

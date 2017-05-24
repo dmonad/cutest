@@ -1,7 +1,7 @@
 # ![cute](https://cloud.githubusercontent.com/assets/5553757/25920308/d0e3ac9a-35d1-11e7-8af7-af1efa39c8ad.jpg) The CUTEST Testing Framework
 > Uncluttered, concurrent tests
 
-No set-up, no global variables, no reporter. Just run the test file in any environment and **cutest** logs will appear in your console. That's it.
+No set-up, no global variables. Just run the test file in any environment and the **cutest** logs will appear in your console. That's it.
 
 ```js
 import test from 'cutest'
@@ -27,7 +27,7 @@ test('Compare Json', async function test2 (t) {
 
 ![Demo](https://cloud.githubusercontent.com/assets/5553757/25725583/e986198c-3120-11e7-9a54-d48139475c07.png)
 
-### Secret NodeJs moves
+### Node Ninja Tricks
 
 **Execute Script Once**
 
@@ -61,7 +61,7 @@ nodemon --inspect --debug-brk test.js
 Best node debugging ever!
 
 
-### Browser Ninja Tricks
+### Secret Browser Testing Moves
 
 Just include the test script in your HTML file. If you don't have one, we got a nice live-reload server for you:
 

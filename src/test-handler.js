@@ -1,45 +1,60 @@
+/* globals location */
+
+import { browserSupport } from './helper.js'
+import queryString from 'query-string'
 
 class TestHandler {
-  prototype () {
+  constructor () {
     this.tests = {}
+    if (typeof location !== 'undefined') {
+      this.opts = queryString.parse(location.search)
+      if (this.opts.case != null) {
+        this.opts.case = Number(this.opts.case)
+      }
+    } else {
+      this.opts = {}
+    }
+  }
+  getRandomSeed () {
+    return this.opts.seed || null
   }
   getTestList () {
     return Object.keys(this.tests).map(name => this.tests[name])
   }
   isTestRunnig () {
-    return this.getTestList().some(test => test.status === 'running' )
+    return this.getTestList().some(test => test.status === 'running')
   }
   isSequentialTestRunning () {
-    return this.getTestList().some(test => !test.isParallel() && test.status === 'running' )
+    return this.getTestList().some(test => !test.isParallel() && test.status === 'running')
   }
   isParallelTestRunning () {
-    return this.getTestList().some(test => test.isParallel() && test.status === 'running' )
+    return this.getTestList().some(test => test.isParallel() && test.status === 'running')
   }
   get numberOfTests () {
     return this.getTestList().length
   }
   get numberOfCompletedTests () {
-    return this.getTestList().filter(test => test.done).length
+    return this.getTestList().filter(test => test.status === 'done').length
   }
   get numberOfSuccessfullTests () {
-    return this.getTestList().filter(test => test.success).length
+    return this.getTestList().filter(test => test.failed === true && test.status === 'done').length
   }
-  registerTest (test) {
+  register (test) {
     if (test.name == null) {
       throw new Error(`
       Each test must be defined by a unique function name!
-
-      E.g. \`test('test description', async function uniqueName () { .. })\``
+      E.g. \`test('test description', async function uniqueName () { .. })\`
+      `
     )
     }
     if (this.tests[test.name] != null) {
       throw new Error(`
         Each test must be defined by a unique function name!
-
-        \`test('test description', async function ${test.name} () { .. })\` is already registered!`
+        => \`test('${test.description}', async function ${test.name} () { .. })\` is already registered!
+        `
       )
     }
-    if (state.query.test == null || test.name.indexOf(state.query.test) >= 0) {
+    if (this.opts.test == null || test.name.indexOf(this.opts.test) >= 0) {
       this.tests[test.name] = test
       if (!this.isTestRunnig() || (test.isParallel() && this.isParallelTestRunning())) {
         // only if no test is running, or if parallel tests are already running
@@ -49,7 +64,7 @@ class TestHandler {
   }
   _runNextSequentialTest () {
     let nextSequential = this.getTestList().find(
-      t => t.status === 'pending' && t.isSequential()
+      t => t.status === 'pending' && !t.isParallel()
     )
     if (nextSequential != null) {
       nextSequential.run()
@@ -101,6 +116,5 @@ class TestHandler {
 }
 
 const testHandler = new TestHandler()
-testHandler.run()
 
 export default testHandler

@@ -1,5 +1,4 @@
-
-import state from './state.js'
+import testHandler from './test-handler.js'
 
 export default function proxyConsole () {
   function createProxy (fName) {
@@ -13,7 +12,7 @@ export default function proxyConsole () {
       var hasTestName = trace[i]
         .match(/^ {4}at TestCase.*\.(\S+) .*/)
       if (hasTestName !== null) {
-        var testcase = state.tests[hasTestName[1]]
+        var testcase = testHandler.tests[hasTestName[1]]
         testcase[fName].apply(testcase, arguments)
       } else {
         originallog.apply(console, arguments)

@@ -1,7 +1,6 @@
 /* global location */
 
 import queryString from 'query-string'
-import state from './state.js'
 
 export function cloneDeep (o) { return JSON.parse(JSON.stringify(o)) }
 
@@ -10,7 +9,7 @@ export const browserSupport =
 
 export function createTestLink (params) {
   if (typeof location !== 'undefined') {
-    var query = JSON.parse(JSON.stringify(state.query))
+    var query = queryString.parse(location.search)
     delete query.test
     delete query.seed
     delete query.args
