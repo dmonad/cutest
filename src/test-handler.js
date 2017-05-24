@@ -37,7 +37,7 @@ class TestHandler {
     return this.getTestList().filter(test => test.status === 'done').length
   }
   get numberOfSuccessfullTests () {
-    return this.getTestList().filter(test => test.failed === true && test.status === 'done').length
+    return this.getTestList().filter(test => test.failed === false && test.status === 'done').length
   }
   register (test) {
     if (test.name == null) {
@@ -93,14 +93,26 @@ class TestHandler {
       }
     }
   }
+  _runRepeatingTests () {
+    let repeatingTests = this.getTestList().filter(t => t.isRepeating())
+    if (repeatingTests.length > 0) {
+      console.log(`%cRunning ${repeatingTests.length} tests again because they use random values..`, 'font-weight:bold')
+      this.tests = {}
+      repeatingTests.forEach(t => {
+        this.register(t.clone())
+      })
+      this.testCompleted()
+    }
+  }
   done () {
     if (this.numberOfTests === this.numberOfCompletedTests) {
       if (this.numberOfTests === this.numberOfSuccessfullTests) {
         if (browserSupport) {
-          console.log('\n%cAll tests passed!', 'colod:green; font-weight:bold')
+          console.log('\n%cAll tests passed!', 'font-weight:bold')
           console.log('%c ',
             'font-size: 1px; padding: 60px 80px; background-size: 170px 120px; line-height: 120px; background-image: url(https://cloud.githubusercontent.com/assets/5553757/25725585/ee1e2ac0-3120-11e7-9401-323c153a99f1.gif)'
           )
+          this._runRepeatingTests()
         } else {
           console.log('\n -- All tests passed! --')
         }

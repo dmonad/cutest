@@ -10,15 +10,18 @@ class TestCase extends Logger {
     this.description = testDescription
     this.testFunction = testFunction
     this.name = testFunction.name
-    this._seed = testHandler.getRandomSeed()
+    this._seed = null
     this.status = 'pending'
     this.opts = opts || {}
+  }
+  isRepeating () {
+    return this._seed != null
   }
   isParallel () {
     return this.opts.parallel === true
   }
-  copy () {
-    return new TestCase(this.testDescription, this.testFunction, this.valueGenerators)
+  clone () {
+    return new TestCase(this.description, this.testFunction, this.valueGenerators, this.opts)
   }
   run () {
     this.status = 'running'
@@ -69,8 +72,7 @@ class TestCase extends Logger {
   }
   getSeed () {
     if (this._seed == null) {
-      this._seed = Math.random()
-      this._continue = true
+      this._seed = testHandler.getRandomSeed() || Math.random()
     }
     return this._seed
   }
