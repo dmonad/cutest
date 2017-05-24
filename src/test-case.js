@@ -15,7 +15,7 @@ class TestCase extends Logger {
     this.opts = opts || {}
   }
   isRepeating () {
-    return this._seed != null
+    return this._seed != null && testHandler.getRandomSeed() === null
   }
   isParallel () {
     return this.opts.parallel === true
