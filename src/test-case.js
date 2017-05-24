@@ -32,7 +32,8 @@ class TestCase extends Logger {
           var url = createTestLink({
             test: this.name,
             seed: this._seed,
-            case: argcase.i
+            case: argcase.i,
+            repeat: this.isRepeating()
           })
           args.push(url)
           await this.asyncGroup(async () => {
@@ -80,7 +81,8 @@ class TestCase extends Logger {
     if (browserSupport) {
       var url = createTestLink({
         test: this.name,
-        seed: this._seed
+        seed: this._seed,
+        repeat: false
       })
       console.groupCollapsed(
         `%c${testHandler.numberOfCompletedTests}/${testHandler.numberOfTests}%c ${this.failed ? 'X' : '√'} ${this.description} %c${url}`,

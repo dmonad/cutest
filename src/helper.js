@@ -13,6 +13,7 @@ export function createTestLink (params) {
     delete query.test
     delete query.seed
     delete query.args
+    delete query.repeat
     for (var name in params) {
       if (params[name] != null) {
         query[name] = params[name]

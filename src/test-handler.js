@@ -5,15 +5,22 @@ import queryString from 'query-string'
 
 class TestHandler {
   constructor () {
+    this.repeatingRun = 0
     this.tests = {}
     if (typeof location !== 'undefined') {
       this.opts = queryString.parse(location.search)
       if (this.opts.case != null) {
         this.opts.case = Number(this.opts.case)
       }
+      if (this.opts.repeat === 'true') {
+        this.opts.repeat = true
+      } else if (this.opts.repeat === 'false') {
+        this.opts.repeat = false
+      }
     } else {
       this.opts = {}
     }
+    this.opts.repeat = this.opts.repeat !== false
   }
   getRandomSeed () {
     return this.opts.seed || null
@@ -95,8 +102,9 @@ class TestHandler {
   }
   _runRepeatingTests () {
     let repeatingTests = this.getTestList().filter(t => t.isRepeating())
-    if (repeatingTests.length > 0) {
-      console.log(`%cRunning ${repeatingTests.length} tests again because they use random values..`, 'font-weight:bold')
+    if (repeatingTests.length > 0 && this.opts.repeat) {
+      this.repeatingRun++
+      console.log(`%cRunning ${repeatingTests.length} tests again because they use random values.. (${this.repeatingRun}. repeating run)`, 'font-weight:bold')
       this.tests = {}
       repeatingTests.forEach(t => {
         this.register(t.clone())
