@@ -4,10 +4,9 @@
   "description": "The CUTEST testing framework",
   "main": "cutest.js",
   "module": "cutest.mjs",
-  "bin": "./bin/serve.js",
+  "bin": "bin/serve.js",
   "files": [
-    "./cutest.*",
-    "./bin/serve.js"
+    "./cutest.*"
   ],
   "standard": {
     "ignore": [
