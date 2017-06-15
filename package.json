@@ -1,6 +1,6 @@
 {
   "name": "cutest",
-  "version": "0.1.8-1",
+  "version": "0.1.8",
   "description": "The CUTEST testing framework",
   "main": "cutest.js",
   "module": "cutest.mjs",
