@@ -4,8 +4,6 @@ import multiEntry from 'rollup-plugin-multi-entry'
 import json from 'rollup-plugin-json'
 import inject from 'rollup-plugin-inject'
 
-import * as path from 'path'
-
 export default {
   entry: 'test/*',
   moduleName: 'cutest',

@@ -78,7 +78,7 @@ class TestCase extends Logger {
     }
     return this._seed
   }
-  async print () {
+  print () {
     if (browserSupport) {
       var url = createTestLink({
         test: this.name,
@@ -90,7 +90,6 @@ class TestCase extends Logger {
         'font-weight: bold',
         `color: ${this.failed ? 'red' : 'green'}`
       )
-      var location = await this.location
       console.log(`%cLocation: ${this.location.fileName}:${this.location.lineNumber}\nRun test again: ${url}`, 'color: grey; font-style: italic; font-size: x-small')
       this.buffer.forEach(function (b) {
         console[b.f].apply(console, b.args)
