@@ -4,11 +4,12 @@ import testHandler from './test-handler.js'
 import Logger from './logger.js'
 
 class TestCase extends Logger {
-  constructor (testDescription, testFunction, valueGenerators, opts) {
+  constructor (testDescription, testFunction, location, valueGenerators, opts) {
     super()
     this.valueGenerators = valueGenerators
     this.description = testDescription
     this.testFunction = testFunction
+    this.location = location
     this.name = testFunction.name
     this._seed = null
     this.status = 'pending'
@@ -54,18 +55,18 @@ class TestCase extends Logger {
       } else {
         test = this.testFunction(this)
       }
-      test.then(() => {
+      test.then(async () => {
         this.status = 'done'
-        this.print()
+        await this.print()
         testHandler.testCompleted(this)
-      }, (err) => {
+      }, async (err) => {
         this.status = 'done'
         this.failed = true
         this.buffer.push({
           f: 'log',
           args: ['%cUncaught ' + err.stack, 'color: red']
         })
-        this.print()
+        await this.print()
         testHandler.testCompleted(this)
       })
     }
@@ -77,7 +78,7 @@ class TestCase extends Logger {
     }
     return this._seed
   }
-  print () {
+  async print () {
     if (browserSupport) {
       var url = createTestLink({
         test: this.name,
@@ -85,11 +86,12 @@ class TestCase extends Logger {
         repeat: false
       })
       console.groupCollapsed(
-        `%c${testHandler.numberOfCompletedTests}/${testHandler.numberOfTests}%c ${this.failed ? 'X' : '√'} ${this.description} %c${url}`,
+        `%c${testHandler.numberOfCompletedTests}/${testHandler.numberOfTests}%c ${this.failed ? 'X' : '√'} ${this.description}`,
         'font-weight: bold',
-        `color: ${this.failed ? 'red' : 'green'}`,
-        'color: grey; font-style: italic; font-size: xx-small'
+        `color: ${this.failed ? 'red' : 'green'}`
       )
+      var location = await this.location
+      console.log(`%cLocation: ${this.location.fileName}:${this.location.lineNumber}\nRun test again: ${url}`, 'color: grey; font-style: italic; font-size: x-small')
       this.buffer.forEach(function (b) {
         console[b.f].apply(console, b.args)
       })

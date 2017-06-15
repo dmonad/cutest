@@ -11,7 +11,7 @@ export default function proxyConsole () {
       }
       var hasTestName = trace[i]
         .match(/^ {4}at TestCase.*\.(\S+) .*/)
-      if (hasTestName !== null) {
+      if (hasTestName !== null && hasTestName[1] !== 'print') {
         var testcase = testHandler.tests[hasTestName[1]]
         testcase[fName].apply(testcase, arguments)
       } else {
