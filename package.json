@@ -48,6 +48,7 @@
   },
   "dependencies": {
     "live-server": "^1.2.0",
-    "meow": "^3.7.0"
+    "meow": "^3.7.0",
+    "stacktrace-js": "^2.0.0"
   }
 }
