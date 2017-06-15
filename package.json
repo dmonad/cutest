@@ -6,7 +6,8 @@
   "module": "cutest.mjs",
   "bin": "./bin/serve.js",
   "files": [
-    "./cutest.*"
+    "./cutest.*",
+    "./bin/serve.js"
   ],
   "standard": {
     "ignore": [
