@@ -1,4 +1,4 @@
-#! /usr/bin/env node
+#!/usr/bin/env node
 
 const liveServer = require('live-server')
 const meow = require('meow')
